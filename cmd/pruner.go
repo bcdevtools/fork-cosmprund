@@ -608,6 +608,11 @@ func pruneAppState(home string) error {
 		delete(keys, "mint") // this one take infinite time to prune
 	}
 
+	for _, store := range excludeStores {
+		fmt.Println("Excluding store", store, "from flag")
+		delete(keys, store)
+	}
+
 	// TODO: cleanup app state
 	appStore := rootmulti.NewStore(appDB)
 
