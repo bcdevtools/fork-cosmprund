@@ -14,6 +14,7 @@ var (
 	app              string
 	cosmosSdk        bool
 	cosmosSdkVersion uint16
+	stores           []string
 	tendermint       bool
 	blocks           uint64
 	versions         uint64
@@ -70,6 +71,12 @@ func NewRootCmd() *cobra.Command {
 	// --cosmos-sdk-version flag
 	rootCmd.PersistentFlags().Uint16Var(&cosmosSdkVersion, "cosmos-sdk-version", 45, "change to higher version to support more modules, eg: 46, 47,...")
 	if err := viper.BindPFlag("cosmos-sdk-version", rootCmd.PersistentFlags().Lookup("cosmos-sdk-version")); err != nil {
+		panic(err)
+	}
+
+	// --stores flag
+	rootCmd.PersistentFlags().StringSliceVar(&stores, "stores", []string{}, "adding custom stores to prune")
+	if err := viper.BindPFlag("stores", rootCmd.PersistentFlags().Lookup("stores")); err != nil {
 		panic(err)
 	}
 
