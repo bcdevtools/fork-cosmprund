@@ -15,6 +15,7 @@ var (
 	cosmosSdk        bool
 	cosmosSdkVersion uint16
 	stores           []string
+	excludeStores    []string
 	tendermint       bool
 	blocks           uint64
 	versions         uint64
@@ -77,6 +78,12 @@ func NewRootCmd() *cobra.Command {
 	// --stores flag
 	rootCmd.PersistentFlags().StringSliceVar(&stores, "stores", []string{}, "adding custom stores to prune")
 	if err := viper.BindPFlag("stores", rootCmd.PersistentFlags().Lookup("stores")); err != nil {
+		panic(err)
+	}
+
+	// --exclude-stores flag
+	rootCmd.PersistentFlags().StringSliceVar(&excludeStores, "exclude-stores", []string{}, "exclude custom stores from being pruned")
+	if err := viper.BindPFlag("exclude-stores", rootCmd.PersistentFlags().Lookup("exclude-stores")); err != nil {
 		panic(err)
 	}
 
