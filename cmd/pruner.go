@@ -580,6 +580,32 @@ func pruneAppState(home string) error {
 		for key, value := range desmosKeys {
 			keys[key] = value
 		}
+	} else if app == "dymension" {
+		dymensionKeys := types.NewKVStoreKeys(
+			"delayedack",
+			"eibc",
+			"rollapp",
+			"sequencer",
+			"streamer",
+			// external
+			"packetfowardmiddleware",
+			// from ethermint fork
+			"evm",
+			"feemarket",
+			// from osmosis fork
+			"lockup",
+			"epochs",
+			"gamm",
+			"poolmanager",
+			"incentives",
+			"txfees",
+		)
+
+		for key, value := range dymensionKeys {
+			keys[key] = value
+		}
+
+		delete(keys, "mint") // this one take infinite time to prune
 	}
 
 	// TODO: cleanup app state
