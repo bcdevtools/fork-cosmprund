@@ -122,6 +122,11 @@ func pruneAppState(home string) error {
 		keys[circuittypes.StoreKey] = types.NewKVStoreKey(circuittypes.StoreKey)
 	}
 
+	for _, store := range stores {
+		fmt.Println("Adding store", store, "from flag")
+		keys[store] = types.NewKVStoreKey(store)
+	}
+
 	if app == "osmosis" {
 		osmoKeys := types.NewKVStoreKeys(
 			"icahost",        //icahosttypes.StoreKey,
