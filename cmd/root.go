@@ -45,7 +45,7 @@ func NewRootCmd() *cobra.Command {
 	}
 
 	// --versions flag
-	rootCmd.PersistentFlags().Uint64VarP(&versions, "versions", "v", 10, "set the amount of versions to keep in the application store (default=10)")
+	rootCmd.PersistentFlags().Uint64VarP(&versions, "versions", "v", 10, "set the amount of versions to keep in the application store (default=10, min=2)")
 	if err := viper.BindPFlag("versions", rootCmd.PersistentFlags().Lookup("versions")); err != nil {
 		panic(err)
 	}

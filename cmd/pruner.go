@@ -595,6 +595,11 @@ func pruneAppState(home string) error {
 		return err
 	}
 
+	versionsToKeep := int(versions)
+	if versionsToKeep < 2 {
+		versionsToKeep = 2
+	}
+
 	versions := appStore.GetAllVersions()
 
 	v64 := make([]int64, len(versions))
@@ -604,7 +609,7 @@ func pruneAppState(home string) error {
 
 	fmt.Println(len(v64))
 
-	appStore.PruneHeights = v64[:len(v64)-10]
+	appStore.PruneHeights = v64[:len(v64)-versionsToKeep]
 
 	appStore.PruneStores()
 
