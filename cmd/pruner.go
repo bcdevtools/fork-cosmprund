@@ -604,6 +604,8 @@ func pruneAppState(home string) error {
 		for key, value := range dymensionKeys {
 			keys[key] = value
 		}
+
+		delete(keys, "mint") // this one take infinite time to prune
 	}
 
 	// TODO: cleanup app state
